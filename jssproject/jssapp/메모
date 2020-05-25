@@ -1,0 +1,56 @@
+# models.py 저장 안해줘도 오류난다.
+# makemigration 거치고, migrate도 해줘야한다 아니면(auth_user에러)
+# render 와 redirect의 차이, url요청만 한다(redirect) <=> render는 보낼게 많아 사전이라던가 등등.
+
+# views.py에서, 이게 없어서 계속 blogs = Blog.objects.all()가 없다고 에러난듯
+
+blog(1)
+model에 데이터를 넣고 그걸 view를 통해 template에 보여주는 작업까지 해냈습니다.
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', firsthome, name='firsthome_def'),   <= 여기 쉼표 잊지말것
+    path('blog2/<int:blog_id>/', detail, name='detail_def'),
+]
+# render는 요청이 들어오면, 이 html을 보여줘 / redirect는 요청이 들어오면 저 url로 보내버려
+
+from .models import Blog # 이게 없어서 계속 blogs = Blog.objects.all()가 없다고 에러난듯
+
+from blogapp.views import firsthome, detail, new, create          # blogapp.views 내의 firsthome, detail 함수를 import
+
+    def __str__(self): # 자기자신을 받아온다고 생각하자.
+        return self.title # 여기서 return해주는 self.title은 그 admin 페이지 내에서, 우리가 올린 글들이 title로 나오게 한다. Blog object(1), Blog object(2) 이런식이 아닌
+    def summary(self):
+        return self.body[:100]
+
+# models.py파일안에 클래스 지정 => 객체 생성을 위한 틀 생성 in models
+
+
+## Model
+
+모델은 데이터베이스에 저장되는 데이터를 의미합니다. excel과 같은 표의 형태로 정리하여 데이터베이스에 넣는다고 생각하면 편합니다. 
+원래 DB를 다루기 위해서는 SQL이라는 언어를 알아야하지만, 
+장고는 이 SQL을 몰라도 DB 작업을 가능하게 해주는 ORM을 제공하기 때문에 공부할 내용이 훨씬 적어지게 됩니다.
+
+- ORM이란?
+Object-Relational Mapping의 약자로, SQL이라는 언어 대신 데이터베이스를 쉽게 연결해주는 방법입니다.
+
+## View (template에 어떻게 보여질지, 가공하는 역할)
+
+뷰는 웹 요청을 받고, 전달받은 데이터들을 해당 어플리케이션의 로직으로 가공하여, 
+그 결과를 템플릿에 보내줍니다. MTV 각각 요소가 모두 중요하지만 그 중에서도 머리역할을 하는 녀석이 뷰입니다.
+데이터를 가공하는 처리를 해야한다 싶으면 뷰를 건드리면 됩니다.
+
+## URLconf
+가공한 데이터를 유저가 보는 화면으로 넘겨주고 싶다.
+
+# templates가 define되지 않았다는 에러는, templates파일이 제 형식에 맞게 뜨도록 고쳐주어야한다.
+
+
+이걸로 블루 게시판 구현.
+
+장고는 post or get으로 나뉜다.
+
+
+post = 암호화과정 csrf 필요
+get = url이 그대로 드러난다. 쉬운 작명가능, 보안 취약
