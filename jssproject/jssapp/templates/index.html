@@ -1,50 +1,57 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>django 3rd class</title>
-    <link rel="stylesheet" href="{% static 'css/index.css' %}" />
-  </head>
-  <body>
-    <div class="container">
-      {% if user.is_authenticated %}
-      <p>
-        {{user}}님 안녕하세요
-      </p>
-      <!-- #user가 anonymous인지 판단해준다. -->
-      <a href="{% url 'logout'%}">
-        <button>로그아웃</button>
-      </a>
+{% comment %} 이걸 여기도 붙여줘야 한다. base.html뿐만 아니라 {% endcomment %}
+{% comment %} 장고 템플릿 문법은 주석 처리를 해도 에러가 나오기 마련이기 때문이다. {% endcomment %}
 
-      {% else %}
+{% block title %} 들어간 인덱스 {% endblock %}
 
-      <a href="{% url 'register' %}"> <button>회원가입</button></a>
-      <a href="{% url 'login' %}">
-        <button>로그인</button>
-      </a>
+{% block extrahead%}
+<link rel="stylesheet" href="hah">
+{% endblock%}
 
-      {% endif %}
-      <p>
-        유저: {{user}}
-      </p>
+{% block content %}
+<div class="container">
 
-      <div class="make_jss">
-        <a href="{% url 'create' %}"> <div class="GO_btn">+</div></a>
-        <h3>자소서 작성</h3>
-      </div>
+  <img src="{% static 'images/양남.png'%}" {% if user.is_authenticated %} <p>
+  {{user}}님 안녕하세요
+  </p>
+  <!-- #user가 anonymous인지 판단해준다. -->
+  <a href="{% url 'logout'%}">
+    <button>로그아웃</button>
+  </a>
 
-      <!-- {{all__jss}} -->
-      {% for jss in all_jss %}
-      <div class="my_jss">
-        <a href="{% url 'detail' jss.id %}"> <p>{{jss.id}}번째 자소설</p> </a>
+  {% else %}
 
-        <!-- <p>{{jss.body}}</p> -->
-        <p>{{jss.create_at}}</p>
-      </div>
-      <hr />
-      {% endfor %}
-    </div>
-  </body>
-</html>
+  <a href="{% url 'register' %}"> <button>회원가입</button></a>
+  <a href="{% url 'login' %}">
+    <button>로그인</button>
+  </a>
+  {% endif %}
+  <p>
+    유저: {{user}}
+  </p>
+
+  <div class="make_jss">
+    <a href="{% url 'create' %}">
+      <div class="GO_btn">+</div>
+    </a>
+    <h3>자소서 작성</h3>
+  </div>
+
+  <!-- {{all__jss}} -->
+  {% for jss in all_jss %}
+  <div class="my_jss">
+    <a href="{% url 'detail' jss.id %}">
+      <p>{{jss.id}}번째 자소설</p>
+
+    </a>
+    <p> <img src="{{ jss.myimage.url }}"> </p>
+
+
+    <!-- <p>{{jss.body}}</p> -->
+    <p>{{jss.create_at}}</p>
+  </div>
+  {% endfor %}
+</div>
+</body>
+{% endblock%}

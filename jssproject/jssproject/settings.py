@@ -45,7 +45,7 @@ ROOT_URLCONF = 'jssproject.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -107,7 +107,13 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
-
+STATIC_ROOT = os.path.join(BASE_DIR,'static')
 STATIC_URL = '/static/'
+
+# http://127.0.0.1:8000/static/images/%EC%96%91%EB%82%A8.png
+# static 아래의 imgaes아래의 png를 가져온 것
+MEDIA_ROOT = os.path.join(BASE_DIR,'LIM')
+MEDIA_URL = '/LIM/'
+
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'

@@ -1,0 +1,19 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      {% block title %} {% endblock %}
+    </title>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}" />
+    {% block extrahead %} {% endblock %}
+  </head>
+  <body>
+    <h1>BASE TEMPLATE</h1>
+    <!-- //////얘를 액자로 쓰겠따. -->
+    {% block content %} {% endblock%}
+    <h1>BASE TEMPLATE END</h1>
+  </body>
+</html>
